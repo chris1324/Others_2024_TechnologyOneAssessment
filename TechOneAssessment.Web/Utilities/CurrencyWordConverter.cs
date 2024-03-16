@@ -43,12 +43,12 @@
         public static string Convert(decimal value)
         {
             var valueAbs = Math.Abs(value);
-            var dollars = (long)Math.Floor(valueAbs);
-            var cents = (long)Math.Floor((valueAbs - dollars) * 100);
 
+            var dollars = (long)Math.Floor(valueAbs);
             var dollarsWord = DoConvert(dollars);
             dollarsWord += dollars == 1 ? " DOLLAR" : " DOLLARS";
 
+            var cents = (long)Math.Floor((valueAbs - dollars) * 100);
             var centsWord = DoConvert(cents);
             centsWord += cents == 1 ? " CENT" : " CENTS";
 
@@ -100,7 +100,7 @@
 
                 return word;
             }
-            else if (value < 10000)
+            else if (value < 100000)
             {
                 var remainder = value % 1000;
                 var word = DoConvert((value - remainder) / 1000) + " THOUSAND";
