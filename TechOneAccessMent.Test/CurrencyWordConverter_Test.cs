@@ -5,6 +5,7 @@ namespace TechOneAccessMent.Test
     public class CurrencyWordConverter_Test
     {
         [Theory]
+        [InlineData("123.45", "ONE HUNDRED AND TWENTY-THREE DOLLARS AND FORTY-FIVE CENTS")]
         // < 0 dollars
         [InlineData("-2.00", "(ONE DOLLARS)")]
         [InlineData("-1.00", "(ONE DOLLAR)")]
@@ -46,8 +47,31 @@ namespace TechOneAccessMent.Test
         [InlineData("91.21", "NINETY-ONE DOLLARS AND TWENTY-ONE CENTS")]
         // Hundred dollars
         [InlineData("100.00", "ONE HUNDRED DOLLARS")]
-        [InlineData("191.21", "ONE HUNDRED AND NINETY-ONE DOLLARS AND TWENTY-ONE CENTS.")]
-        public void Convert(string valueAsString, string expectedResult)
+        [InlineData("101.21", "ONE HUNDRED AND ONE DOLLARS AND TWENTY-ONE CENTS")]
+        [InlineData("191.21", "ONE HUNDRED AND NINETY-ONE DOLLARS AND TWENTY-ONE CENTS")]
+        // Thousand dollars
+        [InlineData("1,000.00", "ONE THOUSAND DOLLARS")]
+        [InlineData("2,013.00", "TWO THOUSAND AND THIRTEEN DOLLARS")]
+        [InlineData("2,913.21", "TWO THOUSAND AND NINE HUNDRED AND THIRTEEN DOLLARS AND TWENTY-ONE CENTS.")]
+        // Ten Thousand dollars
+        [InlineData("10,000.00", "TEN THOUSAND DOLLARS")]
+        [InlineData("20,913.00", "TWENTY-TWO THOUSAND AND NINE HUNDRED AND THIRTEEN DOLLARS")]
+        [InlineData("22,913.21", "TWENTY-TWO THOUSAND AND NINE HUNDRED AND THIRTEEN DOLLARS AND TWENTY-ONE CENTS.")]
+        // Hundred Thousand dollars
+        [InlineData("100,000.00", "HUNDRED THOUSAND DOLLARS")]
+        // Million dollars
+        [InlineData("1,000,000.00", "MILLION DOLLARS")]
+        // Ten Million dollars
+        [InlineData("10,000,000.00", "TEN MILLION DOLLARS")]
+        // Hundred Million dollars
+        [InlineData("100,000,000.00", "HUNDRED MILLION DOLLARS")]
+        // Billion dollars
+        [InlineData("1,000,000,000.00", "BILLION MILLION DOLLARS")]
+        // Ten Billion dollars
+        [InlineData("10,000,000,000.00", "TEN BILLION MILLION DOLLARS")]
+        // Hundred Billion dollars
+        [InlineData("100,000,000,000.00", "HUNDRED BILLION MILLION DOLLARS")]
+        public void Convert_GivenNumericDollars_ConvertToExpectedWords(string valueAsString, string expectedResult)
         {
             // Arrange
             var value = decimal.Parse(valueAsString);
