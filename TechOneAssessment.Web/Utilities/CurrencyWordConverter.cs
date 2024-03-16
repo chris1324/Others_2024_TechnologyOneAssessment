@@ -12,7 +12,7 @@
             { 5, "FIVE" },
             { 6, "SIX" },
             { 7, "SEVEN" },
-            { 8, "ENIGHT" },
+            { 8, "EIGHT" },
             { 9, "NINE" },
             { 10, "TEN" },
             { 11, "ELEVEN" },
@@ -43,21 +43,39 @@
         public static string Convert(decimal amount)
         {
             var amountAbs = Math.Abs(amount);
-            var dolalrs = (long)Math.Floor(amountAbs);
-            var cents = (long)Math.Floor(amountAbs - dolalrs) * 100;
+            var dollars = (long)Math.Floor(amountAbs);
+            var cents = (long)Math.Floor((amountAbs - dollars) * 100);
 
-            var words = DoConvert(dolalrs);
-            if (cents != 0)
-            {
-                words += " AND " + DoConvert(cents) + " CENTS";
-            }
+            var dollarsWord = DoConvert(dollars);
+            dollarsWord += dollars == 1 ? " DOLLAR" : " DOLLARS";
 
-            if (amount < 0)
-            {
-                words = $"({words})";
-            }
+            var centsWord = DoConvert(cents);
+            centsWord += cents == 1 ? " CENT" : " CENTS";
+
+            var words = Build();
+            if (amount < 0) words = $"({words})";
 
             return words;
+
+            string Build()
+            {
+                if (dollars != 0 && cents != 0)
+                {
+                    return dollarsWord + " AND " + centsWord;
+                }
+                else if (dollars != 0 && cents == 0)
+                {
+                    return dollarsWord;
+                }
+                else if (dollars == 0 && cents != 0)
+            {
+                    return centsWord;
+            }
+                else
+            {
+                    return dollarsWord;
+                }
+            }
         }
 
         private static string DoConvert(long amount)

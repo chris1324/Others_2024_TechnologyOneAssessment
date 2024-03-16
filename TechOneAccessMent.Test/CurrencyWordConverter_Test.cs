@@ -7,9 +7,9 @@ namespace TechOneAccessMent.Test
         [Theory]
         [InlineData("123.45", "ONE HUNDRED AND TWENTY-THREE DOLLARS AND FORTY-FIVE CENTS")]
         // < 0 dollars
-        [InlineData("-2.00", "(ONE DOLLARS)")]
+        [InlineData("-2.00", "(TWO DOLLARS)")]
         [InlineData("-1.00", "(ONE DOLLAR)")]
-        [InlineData("0.01", "(ONE CENT)")]
+        [InlineData("-0.01", "(ONE CENT)")]
         // 0.00 - 0.99 dollars
         [InlineData("0.00", "ZERO DOLLARS")]
         [InlineData("0.01", "ONE CENT")]
