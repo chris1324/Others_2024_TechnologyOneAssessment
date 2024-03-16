@@ -44,7 +44,8 @@
         {
             new Term { Lower = 100, Upper = 1000, Word = "HUNDRED" },
             new Term { Lower = 1000, Upper = 1000000, Word = "THOUSAND" },
-            new Term { Lower = 1000000, Upper = 1000000000, Word = "MILLION" }
+            new Term { Lower = 1000000, Upper = 1000000000, Word = "MILLION" },
+            new Term { Lower = 1000000000, Upper = 1000000000000, Word = "BILLION" },
         };
 
         public static string Convert(decimal value)
@@ -126,8 +127,8 @@
 
         private class Term
         {
-            public int Lower { get; set; }
-            public int Upper { get; set; }
+            public long Lower { get; set; }
+            public long Upper { get; set; }
             public string Word { get; set; }
         }
     }
