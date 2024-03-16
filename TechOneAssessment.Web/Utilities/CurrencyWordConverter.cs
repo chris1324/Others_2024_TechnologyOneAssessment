@@ -98,6 +98,18 @@ namespace TechOneAssessment.Web.Utilities
 
                 return result;
             }
+            else if (amount <= 999)
+            {
+                var remainder = amount % 100;
+                var result = DoConvert((amount - remainder) / 100) + " HUNDRED";
+
+                if (remainder > 0)
+                {
+                    result += " " + DoConvert(remainder);
+                }
+
+                return result;
+            }
             else
             {
                 return "";
