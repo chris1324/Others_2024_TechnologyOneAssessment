@@ -9,6 +9,7 @@ namespace TechOneAccessMent.Test
         // < 0 dollars
         [InlineData("-2.00", "(ONE DOLLARS)")]
         [InlineData("-1.00", "(ONE DOLLAR)")]
+        [InlineData("0.01", "(ONE CENT)")]
         // 0.00 - 0.99 dollars
         [InlineData("0.00", "ZERO DOLLARS")]
         [InlineData("0.01", "ONE CENT")]
@@ -16,6 +17,14 @@ namespace TechOneAccessMent.Test
         // 1.00 - 9.99 dollars
         [InlineData("1.00", "ONE DOLLAR")]
         [InlineData("2.00", "TWO DOLLARS")]
+        [InlineData("3.00", "THREE DOLLARS")]
+        [InlineData("4.00", "FOUR DOLLARS")]
+        [InlineData("5.00", "FIVE DOLLARS")]
+        [InlineData("6.00", "SIX DOLLARS")]
+        [InlineData("7.00", "SEVEN DOLLARS")]
+        [InlineData("8.00", "EIGHT DOLLARS")]
+        [InlineData("9.00", "NINE DOLLARS")]
+        [InlineData("9.05", "NINE DOLLARS AND FIVE CENTS")]
         // 10.00 - 19.99 dollars
         [InlineData("11.00", "ELEVEN DOLLARS")]
         [InlineData("12.00", "TWELVE DOLLARS")]
