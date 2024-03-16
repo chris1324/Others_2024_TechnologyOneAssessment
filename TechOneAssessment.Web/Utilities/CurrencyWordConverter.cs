@@ -90,27 +90,39 @@
                 var result = _tens[amount - remainder];
                 if (remainder > 0) result += "-" + DoConvert(remainder);
 
-                return result;
+                return word;
             }
             else if (amount < 1000)
             {
                 var remainder = amount % 100;
-                var result = DoConvert((amount - remainder) / 100) + " HUNDRED";
-                if (remainder > 0) result += " " + DoConvert(remainder);
+                var word = DoConvert((amount - remainder) / 100) + " HUNDRED";
+                if (remainder > 0) word = Concat(word, DoConvert(remainder));
 
-                return result;
+                return word;
             }
             else if (amount < 10000)
             {
                 var remainder = amount % 1000;
-                var result = DoConvert((amount - remainder) / 1000) + " THOUSAND";
-                if (remainder > 0) result += " " + DoConvert(remainder);
+                var word = DoConvert((amount - remainder) / 1000) + " THOUSAND";
+                if (remainder > 0) word = Concat(word, DoConvert(remainder));
 
-                return result;
+                return word;
             }
             else
             {
                 return "";
+            }
+
+            string Concat(string word, string remainderWord)
+            {
+                if (remainderWord.Contains("AND"))
+                {
+                    return word + " " + remainderWord;
+                }
+                else
+                {
+                    return word + " AND " + remainderWord;
+                }
             }
         }
     }
