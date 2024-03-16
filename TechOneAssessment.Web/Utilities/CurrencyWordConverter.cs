@@ -1,6 +1,4 @@
-﻿using System.Diagnostics.Eventing.Reader;
-
-namespace TechOneAssessment.Web.Utilities
+﻿namespace TechOneAssessment.Web.Utilities
 {
     public static class CurrencyWordConverter
     {
@@ -90,11 +88,7 @@ namespace TechOneAssessment.Web.Utilities
             {
                 var remainder = amount % 10;
                 var result = _tens[amount - remainder];
-
-                if (remainder > 0)
-                {
-                    result += "-" + DoConvert(remainder);
-                }
+                if (remainder > 0) result += "-" + DoConvert(remainder);
 
                 return result;
             }
@@ -102,11 +96,7 @@ namespace TechOneAssessment.Web.Utilities
             {
                 var remainder = amount % 100;
                 var result = DoConvert((amount - remainder) / 100) + " HUNDRED";
-
-                if (remainder > 0)
-                {
-                    result += " " + DoConvert(remainder);
-                }
+                if (remainder > 0) result += " " + DoConvert(remainder);
 
                 return result;
             }
@@ -114,11 +104,7 @@ namespace TechOneAssessment.Web.Utilities
             {
                 var remainder = amount % 1000;
                 var result = DoConvert((amount - remainder) / 1000) + " THOUSAND";
-
-                if (remainder > 0)
-                {
-                    result += " " + DoConvert(remainder);
-                }
+                if (remainder > 0) result += " " + DoConvert(remainder);
 
                 return result;
             }
