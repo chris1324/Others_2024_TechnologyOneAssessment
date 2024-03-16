@@ -40,11 +40,11 @@
             { 90, "NINETY" }
         };
 
-        public static string Convert(decimal amount)
+        public static string Convert(decimal value)
         {
-            var amountAbs = Math.Abs(amount);
-            var dollars = (long)Math.Floor(amountAbs);
-            var cents = (long)Math.Floor((amountAbs - dollars) * 100);
+            var valueAbs = Math.Abs(value);
+            var dollars = (long)Math.Floor(valueAbs);
+            var cents = (long)Math.Floor((valueAbs - dollars) * 100);
 
             var dollarsWord = DoConvert(dollars);
             dollarsWord += dollars == 1 ? " DOLLAR" : " DOLLARS";
@@ -53,7 +53,7 @@
             centsWord += cents == 1 ? " CENT" : " CENTS";
 
             var words = Build();
-            if (amount < 0) words = $"({words})";
+            if (value < 0) words = $"({words})";
 
             return words;
 
@@ -78,32 +78,32 @@
             }
         }
 
-        private static string DoConvert(long amount)
+        private static string DoConvert(long value)
         {
-            if (amount < 20)
+            if (value < 20)
             {
-                return _units[amount];
+                return _units[value];
             }
-            else if (amount < 100)
+            else if (value < 100)
             {
-                var remainder = amount % 10;
-                var result = _tens[amount - remainder];
-                if (remainder > 0) result += "-" + DoConvert(remainder);
+                var remainder = value % 10;
+                var word = _tens[value - remainder];
+                if (remainder > 0) word += "-" + DoConvert(remainder);
 
                 return word;
             }
-            else if (amount < 1000)
+            else if (value < 1000)
             {
-                var remainder = amount % 100;
-                var word = DoConvert((amount - remainder) / 100) + " HUNDRED";
+                var remainder = value % 100;
+                var word = DoConvert((value - remainder) / 100) + " HUNDRED";
                 if (remainder > 0) word = Concat(word, DoConvert(remainder));
 
                 return word;
             }
-            else if (amount < 10000)
+            else if (value < 10000)
             {
-                var remainder = amount % 1000;
-                var word = DoConvert((amount - remainder) / 1000) + " THOUSAND";
+                var remainder = value % 1000;
+                var word = DoConvert((value - remainder) / 1000) + " THOUSAND";
                 if (remainder > 0) word = Concat(word, DoConvert(remainder));
 
                 return word;
