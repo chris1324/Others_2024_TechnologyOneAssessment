@@ -100,7 +100,7 @@
 
                 return word;
             }
-            else if (value < 100000)
+            else if (value < 1000000)
             {
                 var remainder = value % 1000;
                 var word = DoConvert((value - remainder) / 1000) + " THOUSAND";
@@ -108,13 +108,23 @@
 
                 return word;
             }
+            else if (value < 1000000000)
+            {
+                var remainder = value % 1000000;
+                var word = DoConvert((value - remainder) / 1000000) + " MILLION";
+                if (remainder > 0) word = Concat(word, DoConvert(remainder));
+
+                return word;
+            }
             else
             {
+                // TODO : Handle
                 return "";
             }
 
             string Concat(string word, string remainderWord)
             {
+                // TODO : Refactor ?
                 if (remainderWord.Contains("AND"))
                 {
                     return word + " " + remainderWord;
