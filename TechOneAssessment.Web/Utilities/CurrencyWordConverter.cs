@@ -2,7 +2,7 @@
 {
     public static class CurrencyWordConverter
     {
-        private static readonly Dictionary<long, string> _units = new()
+        private static readonly Dictionary<long, string> _teens = new()
         {
             { 0, "ZERO" },
             { 1, "ONE" },
@@ -82,7 +82,7 @@
         {
             if (value < 20)
             {
-                return _units[value];
+                return _teens[value];
             }
             else if (value < 100)
             {
