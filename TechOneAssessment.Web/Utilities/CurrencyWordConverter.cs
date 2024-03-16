@@ -1,4 +1,6 @@
-﻿namespace TechOneAssessment.Web.Utilities
+﻿using System.Diagnostics.Eventing.Reader;
+
+namespace TechOneAssessment.Web.Utilities
 {
     public static class CurrencyWordConverter
     {
@@ -22,22 +24,22 @@
             { 15, "FIFTEEN" },
             { 16, "SIXTEEN" },
             { 17, "SEVENTEEN" },
-            { 18, "EIGHTENN" },
+            { 18, "EIGHTEEN" },
             { 19, "NINETEEN" }
         };
 
         private static readonly Dictionary<long, string> _tens = new()
         {
             { 0, "ZERO" },
-            { 1, "TEN" },
-            { 2, "TWENTY" },
-            { 3, "THIRTY" },
-            { 4, "FORTY" },
-            { 5, "FIFTY" },
-            { 6, "SIXTY" },
-            { 7, "SEVENTY" },
-            { 8, "EIGHTY" },
-            { 9, "NINETY" }
+            { 10, "TEN" },
+            { 20, "TWENTY" },
+            { 30, "THIRTY" },
+            { 40, "FORTY" },
+            { 50, "FIFTY" },
+            { 60, "SIXTY" },
+            { 70, "SEVENTY" },
+            { 80, "EIGHTY" },
+            { 90, "NINETY" }
         };
 
         public static string Convert(decimal amount)
@@ -68,11 +70,11 @@
                     return dollarsWord;
                 }
                 else if (dollars == 0 && cents != 0)
-            {
+                {
                     return centsWord;
-            }
+                }
                 else
-            {
+                {
                     return dollarsWord;
                 }
             }
@@ -83,6 +85,18 @@
             if (amount <= 19)
             {
                 return _units[amount];
+            }
+            else if (amount <= 99)
+            {
+                var remainder = amount % 10;
+                var result = _tens[amount - remainder];
+
+                if (remainder > 0)
+                {
+                    result += "-" + DoConvert(remainder);
+                }
+
+                return result;
             }
             else
             {
