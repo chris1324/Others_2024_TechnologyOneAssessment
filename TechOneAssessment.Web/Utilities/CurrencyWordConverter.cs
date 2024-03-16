@@ -42,10 +42,34 @@
 
         public static string Convert(decimal amount)
         {
+            var amountAbs = Math.Abs(amount);
+            var dolalrs = (long)Math.Floor(amountAbs);
+            var cents = (long)Math.Floor(amountAbs - dolalrs) * 100;
+
+            var words = DoConvert(dolalrs);
+            if (cents != 0)
+            {
+                words += " AND " + DoConvert(cents) + " CENTS";
+            }
+
+            if (amount < 0)
+            {
+                words = $"({words})";
+            }
+
+            return words;
         }
 
         private static string DoConvert(long amount)
         {
+            if (amount <= 19)
+            {
+                return _units[amount];
+            }
+            else
+            {
+                return "";
+            }
         }
     }
 }
