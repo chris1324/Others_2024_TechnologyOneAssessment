@@ -55,7 +55,7 @@ namespace TechOneAccessMent.Test
         [InlineData("2,913.21", "TWO THOUSAND AND NINE HUNDRED AND THIRTEEN DOLLARS AND TWENTY-ONE CENTS.")]
         // Ten Thousand dollars
         [InlineData("10,000.00", "TEN THOUSAND DOLLARS")]
-        [InlineData("20,913.00", "TWENTY-TWO THOUSAND AND NINE HUNDRED AND THIRTEEN DOLLARS")]
+        [InlineData("22,013.00", "TWENTY-TWO THOUSAND AND THIRTEEN DOLLARS")]
         [InlineData("22,913.21", "TWENTY-TWO THOUSAND AND NINE HUNDRED AND THIRTEEN DOLLARS AND TWENTY-ONE CENTS.")]
         // Hundred Thousand dollars
         [InlineData("100,000.00", "HUNDRED THOUSAND DOLLARS")]
