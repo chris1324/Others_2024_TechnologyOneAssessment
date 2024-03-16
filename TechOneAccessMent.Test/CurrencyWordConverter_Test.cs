@@ -67,22 +67,22 @@ namespace TechOneAccessMent.Test
         // Ten Thousand dollars
         [InlineData("10,000.00", "TEN THOUSAND DOLLARS")]
         [InlineData("22,013.00", "TWENTY-TWO THOUSAND AND THIRTEEN DOLLARS")]
-        [InlineData("22,900.00", "TWENTY-TWO THOUSAND AND NINE HUNDREND DOLLARS")]
-        [InlineData("22,913.21", "TWENTY-TWO THOUSAND NINE HUNDRED AND THIRTEEN DOLLARS AND TWENTY-ONE CENTS.")]
+        [InlineData("22,900.00", "TWENTY-TWO THOUSAND AND NINE HUNDRED DOLLARS")]
+        [InlineData("22,913.21", "TWENTY-TWO THOUSAND NINE HUNDRED AND THIRTEEN DOLLARS AND TWENTY-ONE CENTS")]
         // Hundred Thousand dollars
-        [InlineData("100,000.00", "HUNDRED THOUSAND DOLLARS")]
+        [InlineData("100,000.00", "ONE HUNDRED THOUSAND DOLLARS")]
         // Million dollars
-        [InlineData("1,000,000.00", "MILLION DOLLARS")]
+        [InlineData("1,000,000.00", "ONE MILLION DOLLARS")]
         // Ten Million dollars
         [InlineData("10,000,000.00", "TEN MILLION DOLLARS")]
         // Hundred Million dollars
-        [InlineData("100,000,000.00", "HUNDRED MILLION DOLLARS")]
+        [InlineData("100,000,000.00", "ONE HUNDRED MILLION DOLLARS")]
         // Billion dollars
-        [InlineData("1,000,000,000.00", "BILLION MILLION DOLLARS")]
+        [InlineData("1,000,000,000.00", "ONE BILLION MILLION DOLLARS")]
         // Ten Billion dollars
         [InlineData("10,000,000,000.00", "TEN BILLION MILLION DOLLARS")]
         // Hundred Billion dollars
-        [InlineData("100,000,000,000.00", "HUNDRED BILLION MILLION DOLLARS")]
+        [InlineData("100,000,000,000.00", "ONE HUNDRED BILLION MILLION DOLLARS")]
         public void Convert_GivenNumericDollars_ConvertToExpectedWords(string valueAsString, string expectedResult)
         {
             // Arrange
