@@ -42,10 +42,18 @@
 
         private static readonly List<Term> _terms = new()
         {
-            new Term { Lower = 100, Upper = 1000, Word = "HUNDRED" },
-            new Term { Lower = 1000, Upper = 1000000, Word = "THOUSAND" },
-            new Term { Lower = 1000000, Upper = 1000000000, Word = "MILLION" },
-            new Term { Lower = 1000000000, Upper = 1000000000000, Word = "BILLION" },
+            new Term { Lower = (long) Math.Pow(10, 2), Upper = (long) Math.Pow(10, 3), Word = "HUNDRED" },
+            new Term { Lower = (long) Math.Pow(10, 3), Upper = (long) Math.Pow(10, 6), Word = "THOUSAND" },
+            new Term { Lower = (long) Math.Pow(10, 6), Upper = (long) Math.Pow(10, 9), Word = "MILLION" },
+            new Term { Lower = (long) Math.Pow(10, 9), Upper = (long) Math.Pow(10, 12), Word = "BILLION" },
+            new Term { Lower = (long) Math.Pow(10, 12), Upper = (long) Math.Pow(10, 15), Word = "Trillion" },
+            new Term { Lower = (long) Math.Pow(10, 15), Upper = (long) Math.Pow(10, 18), Word = "Quadrillion" },
+            new Term { Lower = (long) Math.Pow(10, 18), Upper = (long) Math.Pow(10, 21), Word = "Quintillion" },
+            new Term { Lower = (long) Math.Pow(10, 21), Upper = (long) Math.Pow(10, 24), Word = "Sextillion" },
+            new Term { Lower = (long) Math.Pow(10, 24), Upper = (long) Math.Pow(10, 27), Word = "Septillion" },
+            new Term { Lower = (long) Math.Pow(10, 27), Upper = (long) Math.Pow(10, 30), Word = "Octillion" },
+            new Term { Lower = (long) Math.Pow(10, 30), Upper = (long) Math.Pow(10, 33), Word = "Nonillion" },
+            new Term { Lower = (long) Math.Pow(10, 33), Upper = (long) Math.Pow(10, 36), Word = "Decillion" }
         };
 
         public static string Convert(decimal value)
