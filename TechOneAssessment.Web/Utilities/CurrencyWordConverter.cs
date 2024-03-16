@@ -40,6 +40,13 @@
             { 90, "NINETY" }
         };
 
+        private static readonly List<Term> _terms = new()
+        {
+            new Term { Lower = 100, Upper = 1000, Word = "HUNDRED" },
+            new Term { Lower = 1000, Upper = 1000000, Word = "THOUSAND" },
+            new Term { Lower = 1000000, Upper = 1000000000, Word = "MILLION" }
+        };
+
         public static string Convert(decimal value)
         {
             var valueAbs = Math.Abs(value);
@@ -92,48 +99,36 @@
 
                 return word;
             }
-            else if (value < 1000)
-            {
-                var remainder = value % 100;
-                var word = DoConvert((value - remainder) / 100) + " HUNDRED";
-                if (remainder > 0) word = Concat(word, DoConvert(remainder));
-
-                return word;
-            }
-            else if (value < 1000000)
-            {
-                var remainder = value % 1000;
-                var word = DoConvert((value - remainder) / 1000) + " THOUSAND";
-                if (remainder > 0) word = Concat(word, DoConvert(remainder));
-
-                return word;
-            }
-            else if (value < 1000000000)
-            {
-                var remainder = value % 1000000;
-                var word = DoConvert((value - remainder) / 1000000) + " MILLION";
-                if (remainder > 0) word = Concat(word, DoConvert(remainder));
-
-                return word;
-            }
             else
             {
-                // TODO : Handle
-                return "";
-            }
+                var term = _terms.FirstOrDefault(x => x.Lower <= value && value < x.Upper);
+                if (term == null) throw new Exception("TODO");
 
-            string Concat(string word, string remainderWord)
-            {
-                // TODO : Refactor ?
-                if (remainderWord.Contains("AND"))
+                var remainder = value % term.Lower;
+                var word = DoConvert((value - remainder) / term.Lower) + " " + term.Word;
+
+                if (remainder > 0)
                 {
-                    return word + " " + remainderWord;
+                    var remainderWord = DoConvert(remainder);
+                    if (remainderWord.Contains("AND"))
+                    {
+                        word += " " + remainderWord;
+                    }
+                    else
+                    {
+                        word += " AND " + remainderWord;
+                    }
                 }
-                else
-                {
-                    return word + " AND " + remainderWord;
-                }
+
+                return word;
             }
+        }
+
+        private class Term
+        {
+            public int Lower { get; set; }
+            public int Upper { get; set; }
+            public string Word { get; set; }
         }
     }
 }
