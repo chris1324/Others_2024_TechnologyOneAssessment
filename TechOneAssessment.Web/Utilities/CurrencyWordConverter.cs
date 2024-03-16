@@ -82,11 +82,11 @@ namespace TechOneAssessment.Web.Utilities
 
         private static string DoConvert(long amount)
         {
-            if (amount <= 19)
+            if (amount < 20)
             {
                 return _units[amount];
             }
-            else if (amount <= 99)
+            else if (amount < 100)
             {
                 var remainder = amount % 10;
                 var result = _tens[amount - remainder];
@@ -98,10 +98,22 @@ namespace TechOneAssessment.Web.Utilities
 
                 return result;
             }
-            else if (amount <= 999)
+            else if (amount < 1000)
             {
                 var remainder = amount % 100;
                 var result = DoConvert((amount - remainder) / 100) + " HUNDRED";
+
+                if (remainder > 0)
+                {
+                    result += " " + DoConvert(remainder);
+                }
+
+                return result;
+            }
+            else if (amount < 10000)
+            {
+                var remainder = amount % 1000;
+                var result = DoConvert((amount - remainder) / 1000) + " THOUSAND";
 
                 if (remainder > 0)
                 {
