@@ -4,15 +4,15 @@
 
 <form id="conversionForm">
     <div>
-    <div>
-        <label for="inputNumber">Enter a number:</label>
-        <input type="number" name="inputNumber" step="0.01" id="inputNumber" />
-        <input type="submit" value="Convert" />
-    </div>
+        <div>
+            <label for="inputNumber">Enter a number:</label>
+            <input type="number" name="inputNumber" step="0.01" id="inputNumber" required />
+            <input type="submit" value="Convert" />
+        </div>
 
-    <div>
-        Result : <span id="resultSection"><!-- Result will be displayed here --> </span>
-    </div>
+        <div>
+            Result : <span id="resultSection"><!-- Result will be displayed here --> </span>
+        </div>
     </div>
 </form>
 
@@ -23,7 +23,7 @@
                 e.preventDefault(); // Prevent normal form submission
 
                 var inputValue = $('#inputNumber').val();
-                
+
                 $.ajax({
                     url: '@Url.Action("ConvertToWords", "Home")',
                     type: 'POST',
