@@ -2,7 +2,7 @@ using TechOneAssessment.Web.Utilities;
 
 namespace TechOneAccessMent.Test
 {
-    public class DollarsWordConverter_Test
+    public abstract class DollarsWordConverter_Test
     {
         [Theory]
         [InlineData("123.45", "ONE HUNDRED AND TWENTY-THREE DOLLARS AND FORTY-FIVE CENTS")]
@@ -56,6 +56,7 @@ namespace TechOneAccessMent.Test
         [InlineData("91.21", "NINETY-ONE DOLLARS AND TWENTY-ONE CENTS")]
         // Hundred dollars
         [InlineData("100.00", "ONE HUNDRED DOLLARS")]
+        [InlineData("121.00", "ONE HUNDRED AND TWENTY-ONE DOLLARS")]
         [InlineData("201.21", "TWO HUNDRED AND ONE DOLLARS AND TWENTY-ONE CENTS")]
         [InlineData("290.21", "TWO HUNDRED AND NINETY DOLLARS AND TWENTY-ONE CENTS")]
         [InlineData("291.21", "TWO HUNDRED AND NINETY-ONE DOLLARS AND TWENTY-ONE CENTS")]
@@ -89,16 +90,58 @@ namespace TechOneAccessMent.Test
         [InlineData("1,000,000,000,000.00", "ONE TRILLION DOLLARS")]
         [InlineData("10,000,000,000,000.00", "TEN TRILLION DOLLARS")]
         [InlineData("100,000,000,000,000.00", "ONE HUNDRED TRILLION DOLLARS")]
-        public void Convert_GivenNumericDollars_ConvertToExpectedWords(string valueAsString, string expectedResult)
+        [InlineData("1,000,000,000,000,000.00", "ONE QUADRILLION DOLLARS", true)]
+        [InlineData("10,000,000,000,000,000.00", "TEN QUADRILLION DOLLARS", true)]
+        [InlineData("100,000,000,000,000,000.00", "ONE HUNDRED QUADRILLION DOLLARS", true)]
+        [InlineData("1,000,000,000,000,000,000.00", "ONE QUINTILLION DOLLARS", true)]
+        [InlineData("10,000,000,000,000,000,000.00", "TEN QUINTILLION DOLLARS", true)]
+        [InlineData("100,000,000,000,000,000,000.00", "ONE HUNDRED QUINTILLION DOLLARS", true)]
+        [InlineData("1,000,000,000,000,000,000,000.00", "ONE SEXTILLION DOLLARS", true)]
+        [InlineData("10,000,000,000,000,000,000,000.00", "TEN SEXTILLION DOLLARS", true)]
+        [InlineData("100,000,000,000,000,000,000,000.00", "ONE HUNDRED SEXTILLION DOLLARS", true)]
+        [InlineData("1,000,000,000,000,000,000,000,000.00", "ONE SEPTILLION DOLLARS", true)]
+        [InlineData("10,000,000,000,000,000,000,000,000.00", "TEN SEPTILLION DOLLARS", true)]
+        [InlineData("100,000,000,000,000,000,000,000,000.00", "ONE HUNDRED SEPTILLION DOLLARS", true)]
+        [InlineData("1,000,000,000,000,000,000,000,000,000.00", "ONE OCTILLION DOLLARS", true)]
+        [InlineData("10,000,000,000,000,000,000,000,000,000.00", "TEN OCTILLION DOLLARS", true)]
+        [InlineData("100,000,000,000,000,000,000,000,000,000.00", "ONE HUNDRED OCTILLION DOLLARS", true)]
+        [InlineData("1,000,000,000,000,000,000,000,000,000,000.00", "ONE NONILLION DOLLARS", true)]
+        [InlineData("10,000,000,000,000,000,000,000,000,000,000.00", "TEN NONILLION DOLLARS", true)]
+        [InlineData("100,000,000,000,000,000,000,000,000,000,000.00", "ONE HUNDRED NONILLION DOLLARS", true)]
+        [InlineData("1,000,000,000,000,000,000,000,000,000,000,000.00", "ONE DECILLION DOLLARS", true)]
+        [InlineData("10,000,000,000,000,000,000,000,000,000,000,000.00", "TEN DECILLION DOLLARS", true)]
+        [InlineData("100,000,000,000,000,000,000,000,000,000,000,000.00", "ONE HUNDRED DECILLION DOLLARS", true)]
+        public void Convert_GivenNumericDollars_ConvertToExpectedWords(string value, string expectedResult, bool isLargeNumber = false)
         {
             // Arrange
-            var value = decimal.Parse(valueAsString);
-            
             // Act
-            var result = DollarsWordConverter.Convert(value);
+            var sut = CreateSut();
+            if (isLargeNumber && !RunLargeNumberTest()) return;
+            var result = sut.Convert(value);
 
             // Assert
             Assert.Equal(expectedResult, result);
+        }
+
+        protected abstract IDollarsWordConverter CreateSut();
+        protected abstract bool RunLargeNumberTest();
+
+        public class DollarsWordConverterV1_Test : DollarsWordConverter_Test
+        {
+            protected override IDollarsWordConverter CreateSut() => new DollarsWordConverterV1();
+            protected override bool RunLargeNumberTest() => false;
+        }
+
+        public class DollarsWordConverterV2_Test : DollarsWordConverter_Test
+        {
+            protected override IDollarsWordConverter CreateSut() => new DollarsWordConverterV2();
+            protected override bool RunLargeNumberTest() => false;
+        }
+
+        public class DollarsWordConverterV3_Test : DollarsWordConverter_Test
+        {
+            protected override IDollarsWordConverter CreateSut() => new DollarsWordConverterV3();
+            protected override bool RunLargeNumberTest() => true;
         }
     }
 }

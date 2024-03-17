@@ -1,4 +1,4 @@
-﻿namespace TechOneAssessment.Web.Utilities
+﻿namespace TechOneAssessment.Web.Extensions
 {
     public static class StringExtensions
     {

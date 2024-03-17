@@ -7,10 +7,12 @@ namespace TechOneAssessment.Web.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IDollarsWordConverter _dollarsWordConverter;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IDollarsWordConverter dollarsWordConverter)
         {
             _logger = logger;
+            _dollarsWordConverter = dollarsWordConverter;
         }
 
         public IActionResult Index()
@@ -23,7 +25,7 @@ namespace TechOneAssessment.Web.Controllers
         {
             try
             {
-                var result = DollarsWordConverter.Convert(input);
+                var result = _dollarsWordConverter.Convert(input);
                 return Content(result);
             }
             catch (InputException ex)

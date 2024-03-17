@@ -2,7 +2,7 @@
 
 namespace TechOneAssessment.Web.Utilities
 {
-    public static class DollarsWordConverter
+    public class DollarsWordConverterV2 : IDollarsWordConverter
     {
         private static readonly Dictionary<long, string> _teens = new()
         {
@@ -51,9 +51,15 @@ namespace TechOneAssessment.Web.Utilities
             new Term { Lower = (long) Math.Pow(10, 12), Upper = (long) Math.Pow(10, 15), Word = "TRILLION" }
         };
 
-        private static char WordSeparator = '|';
+        public string Convert(string value)
+        {
+            var success = decimal.TryParse(value, out var valueAsDecimal);
+            if (!success) throw new InputException("Input is not a valid number");
 
-        public static string Convert(decimal value)
+            return Convert(valueAsDecimal);
+        }
+
+        public string Convert(decimal value)
         {
             var valueAbs = Math.Abs(value);
 
@@ -67,13 +73,6 @@ namespace TechOneAssessment.Web.Utilities
 
             var words = Concat();
             if (value < 0) words = $"({words})";
-
-            var lastSeparatorIndex = words.LastIndexOf(WordSeparator);
-            if (lastSeparatorIndex >= 0)
-            {
-                words = words.ReplaceAt(words.LastIndexOf(WordSeparator), " AND ");
-                words = words.Replace("|", " ");
-            }
 
             return words;
 
@@ -98,39 +97,90 @@ namespace TechOneAssessment.Web.Utilities
             }
         }
 
-        private static string DoConvert(long value)
+        private string DoConvert(long value)
         {
-            if (value < 100) return DoConvertFor0To99(value);
+            var results = new List<string>();
+            var nextValue = value;
 
-            var term = _terms.FirstOrDefault(x => x.Lower <= value && value < x.Upper);
-            if (term == null) throw new InputException("Value is too large.");
-
-            var remainder = value % term.Lower;
-            var word = DoConvert((value - remainder) / term.Lower) + " " + term.Word;
-
-            if (remainder > 0)
+            do
             {
-                var remainderWord = DoConvert(remainder);
-                word += WordSeparator + remainderWord;
-            }
+                if (nextValue < 100)
+                {
+                    var word = DoConvertFor0To99(nextValue);
+                    results.Add(word);
+                    nextValue = 0;
+                }
+                else
+                {
+                    var term = _terms.FirstOrDefault(x => x.Lower <= nextValue && nextValue < x.Upper);
+                    if (term == null) throw new InputException("Value is too large.");
 
-            return word;
+                    var remainder = nextValue % term.Lower;
+                    var currResults = DoConvertFor100To999((nextValue - remainder) / term.Lower);
+                    var lastIndex = currResults.Count - 1;
+                    currResults[lastIndex] += " " + term.Word;
+                    results.AddRange(currResults);
+
+                    nextValue = remainder;
+                }
+            } while (nextValue > 0);
+
+            if (results.Count == 1)
+            {
+                return results[0];
+            }
+            else
+            {
+                var lastIndex = results.Count - 1;
+                results[lastIndex] = "AND " + results[lastIndex];
+
+                return string.Join(" ", results);
+            }
         }
 
-        private static string DoConvertFor0To99(long value)
+        private List<string> DoConvertFor100To999(long value)
+        {
+            var results = new List<string>();
+
+            if (value < 100)
+            {
+                results.Add(DoConvertFor0To99(value));
+            }
+            else
+            {
+                var remainder = value % 100;
+                var word = DoConvertFor0To99((value - remainder) / 100) + " HUNDRED";
+                results.Add(word);
+
+                if (remainder > 0)
+                {
+                    var remainderWord = DoConvertFor0To99(remainder);
+                    results.Add(remainderWord);
+                }
+            }
+
+            return results;
+        }
+
+        private string DoConvertFor0To99(long value)
         {
             if (value < 20)
             {
-                return _teens[value];
+                return DoConvertFor0To19(value);
             }
             else
             {
                 var remainder = value % 10;
                 var word = _tens[value - remainder];
-                if (remainder > 0) word += "-" + DoConvert(remainder);
+                if (remainder > 0) word += "-" + DoConvertFor0To19(remainder);
 
                 return word;
             }
+        }
+
+        private string DoConvertFor0To19(long value)
+        {
+            return _teens[value];
         }
 
         private class Term
