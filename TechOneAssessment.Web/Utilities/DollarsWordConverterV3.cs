@@ -180,7 +180,11 @@ namespace TechOneAssessment.Web.Utilities
                 var isValidCents = int.TryParse(centsValue, out var centsValueAsInt);
                 if (!isValidCents) throw new InputException("Input format invalid");
 
-                var parts = new List<DollarPart>
+                IsNegative = isNegative;
+                IsZeroDollar = dollarsValue == "0";
+                IsOneDollar = dollarsValue == "1";
+                Cents = centsValueAsInt;
+                Parts = new List<DollarPart>
                 {
                     Parse(dollarsValue, 13, 15, "TRILLION"),
                     Parse(dollarsValue, 10, 12, "BILLION"),
@@ -188,13 +192,7 @@ namespace TechOneAssessment.Web.Utilities
                     Parse(dollarsValue, 4, 6, "THOUSAND"),
                     Parse(dollarsValue, 3, 3, "HUNDRED"),
                     Parse(dollarsValue, 1, 2, null)
-                }.Where(x => x != null).ToList();
-
-                IsNegative = isNegative;
-                IsZeroDollar = dollarsValue == "0";
-                IsOneDollar = dollarsValue == "1";
-                Cents = centsValueAsInt;
-                Parts = parts;
+                }.Where(x => x != null).ToList(); ;
             }
 
             private static DollarPart Parse(string value, int startDigit, int endDigit, string term)
