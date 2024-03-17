@@ -98,6 +98,11 @@ namespace TechOneAssessment.Web.Utilities
         {
             var results = new List<string>();
 
+            if (dollar.IsZeroDollar)
+            {
+                return "ZERO";
+            }
+
             foreach (var part in dollar.Parts)
             {
                 if (part.Value == 0) continue;
@@ -106,11 +111,7 @@ namespace TechOneAssessment.Web.Utilities
                 results.Add(value);
             }
 
-            if (results.Count == 0)
-            {
-                return "ZERO";
-            }
-            else if (results.Count == 1)
+            if (results.Count == 1)
             {
                 return results[0];
             }
@@ -169,7 +170,7 @@ namespace TechOneAssessment.Web.Utilities
                 }.Where(x => x != null).ToList();
 
                 IsNegative = isNegative;
-                IsZeroDollar = parts.Count == 0;
+                IsZeroDollar = parts.Sum(x => x.Value) == 0;
                 IsOneDollar = parts.All(x => x.Term == null && x.Value == 1);
                 Cents = centsValueAsInt;
                 Parts = parts;
