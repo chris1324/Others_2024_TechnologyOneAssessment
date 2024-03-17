@@ -95,7 +95,7 @@ namespace TechOneAccessMent.Test
             var value = decimal.Parse(valueAsString);
             
             // Act
-            var result = DollarsWordConverter.Convert(value);
+            var result = DollarsWordConverterV1.Convert(value);
 
             // Assert
             Assert.Equal(expectedResult, result);

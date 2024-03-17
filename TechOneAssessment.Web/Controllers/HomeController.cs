@@ -23,7 +23,7 @@ namespace TechOneAssessment.Web.Controllers
         {
             try
             {
-                var result = DollarsWordConverter.Convert(input);
+                var result = DollarsWordConverterV1.Convert(input);
                 return Content(result);
             }
             catch (InputException ex)

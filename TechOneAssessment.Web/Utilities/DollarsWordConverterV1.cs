@@ -2,7 +2,7 @@
 
 namespace TechOneAssessment.Web.Utilities
 {
-    public class DollarsWordConverter
+    public class DollarsWordConverterV1
     {
         private static readonly Dictionary<long, string> _teens = new()
         {
