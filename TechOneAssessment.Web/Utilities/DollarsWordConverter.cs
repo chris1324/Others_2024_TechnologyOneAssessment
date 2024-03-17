@@ -113,7 +113,7 @@
             else
             {
                 var term = _terms.FirstOrDefault(x => x.Lower <= value && value < x.Upper);
-                if (term == null) throw new Exception("TODO");
+                if (term == null) throw new InvalidOperationException("Value is too large.");
 
                 var remainder = value % term.Lower;
                 var word = DoConvert((value - remainder) / term.Lower) + " " + term.Word;
