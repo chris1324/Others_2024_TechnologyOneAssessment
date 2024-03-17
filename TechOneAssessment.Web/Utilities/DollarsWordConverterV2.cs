@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using Microsoft.AspNetCore.Http;
+using System.Linq;
 using TechOneAssessment.Web.Exceptions;
 
 namespace TechOneAssessment.Web.Utilities
@@ -109,14 +110,14 @@ namespace TechOneAssessment.Web.Utilities
                     if (term == null) throw new InputException("Value is too large.");
 
                     var remainder = nextValue % term.Lower;
-                    var word = DoConvert((nextValue - remainder) / term.Lower) + " " + term.Word;
+                    var word = DoConvertFor100To999((nextValue - remainder) / term.Lower) + " " + term.Word;
                     results.Add(word);
 
                     nextValue = remainder;
                 }
             } while (nextValue > 0);
 
-            if (results.Count > 1)
+            if (results.Count == 1)
             {
                 return results[0];
             }
@@ -140,6 +141,28 @@ namespace TechOneAssessment.Web.Utilities
                 var remainder = value % 10;
                 var word = _tens[value - remainder];
                 if (remainder > 0) word += "-" + DoConvert(remainder);
+
+                return word;
+            }
+        }
+
+
+        private static string DoConvertFor100To999(long value)
+        {
+            if (value < 100)
+            {
+                return DoConvertFor0To99(value);
+            }
+            else
+            {
+                var remainder = value % 100;
+                var word = DoConvertFor0To99((value - remainder) / 100) + " HUNDRED";
+
+                if (remainder > 0)
+                {
+                    var remainderWord = DoConvertFor0To99(remainder);
+                    word += remainderWord;
+                }
 
                 return word;
             }
