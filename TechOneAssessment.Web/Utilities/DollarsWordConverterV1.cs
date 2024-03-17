@@ -53,6 +53,14 @@ namespace TechOneAssessment.Web.Utilities
 
         private static char WordSeparator = '|';
 
+        public string Convert(string value)
+        {
+            var success = decimal.TryParse(value, out var valueAsDecimal);
+            if (!success) throw new InputException("Input is not a valid number");
+
+            return Convert(valueAsDecimal);
+        }
+
         public string Convert(decimal value)
         {
             var valueAbs = Math.Abs(value);

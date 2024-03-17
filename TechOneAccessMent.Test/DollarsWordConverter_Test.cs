@@ -89,11 +89,9 @@ namespace TechOneAccessMent.Test
         [InlineData("1,000,000,000,000.00", "ONE TRILLION DOLLARS")]
         [InlineData("10,000,000,000,000.00", "TEN TRILLION DOLLARS")]
         [InlineData("100,000,000,000,000.00", "ONE HUNDRED TRILLION DOLLARS")]
-        public void Convert_GivenNumericDollars_ConvertToExpectedWords(string valueAsString, string expectedResult)
+        public void Convert_GivenNumericDollars_ConvertToExpectedWords(string value, string expectedResult)
         {
             // Arrange
-            var value = decimal.Parse(valueAsString);
-
             // Act
             var sut = CreateSut();
             var result = sut.Convert(value);
@@ -103,5 +101,20 @@ namespace TechOneAccessMent.Test
         }
 
         protected abstract IDollarsWordConverter CreateSut();
+
+        public class DollarsWordConverterV1_Test : DollarsWordConverter_Test
+        {
+            protected override IDollarsWordConverter CreateSut() => new DollarsWordConverterV1();
+        }
+
+        public class DollarsWordConverterV2_Test : DollarsWordConverter_Test
+        {
+            protected override IDollarsWordConverter CreateSut() => new DollarsWordConverterV2();
+        }
+
+        public class DollarsWordConverterV3_Test : DollarsWordConverter_Test
+        {
+            protected override IDollarsWordConverter CreateSut() => new DollarsWordConverterV3();
+        }
     }
 }
