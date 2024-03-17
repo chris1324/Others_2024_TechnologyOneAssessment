@@ -1,4 +1,6 @@
-﻿namespace TechOneAssessment.Web.Utilities
+﻿using TechOneAssessment.Web.Exceptions;
+
+namespace TechOneAssessment.Web.Utilities
 {
     public static class DollarsWordConverter
     {
@@ -113,7 +115,7 @@
             else
             {
                 var term = _terms.FirstOrDefault(x => x.Lower <= value && value < x.Upper);
-                if (term == null) throw new InvalidOperationException("Value is too large.");
+                if (term == null) throw new InputException("Value is too large.");
 
                 var remainder = value % term.Lower;
                 var word = DoConvert((value - remainder) / term.Lower) + " " + term.Word;
