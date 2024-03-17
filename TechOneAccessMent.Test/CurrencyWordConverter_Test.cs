@@ -78,16 +78,20 @@ namespace TechOneAccessMent.Test
         // Hundred Million dollars
         [InlineData("100,000,000.00", "ONE HUNDRED MILLION DOLLARS")]
         // Billion dollars
-        [InlineData("1,000,000,000.00", "ONE BILLION MILLION DOLLARS")]
+        [InlineData("1,000,000,000.00", "ONE BILLION DOLLARS")]
         // Ten Billion dollars
-        [InlineData("10,000,000,000.00", "TEN BILLION MILLION DOLLARS")]
+        [InlineData("10,000,000,000.00", "TEN BILLION DOLLARS")]
         // Hundred Billion dollars
-        [InlineData("100,000,000,000.00", "ONE HUNDRED BILLION MILLION DOLLARS")]
+        [InlineData("100,000,000,000.00", "ONE HUNDRED BILLION DOLLARS")]
+        // Trillion dollards
+        [InlineData("1,000,000,000,000.00", "ONE TRILLION DOLLARS")]
+        [InlineData("10,000,000,000,000.00", "TEN TRILLION DOLLARS")]
+        [InlineData("100,000,000,000,000.00", "ONE HUNDRED TRILLION DOLLARS")]
         public void Convert_GivenNumericDollars_ConvertToExpectedWords(string valueAsString, string expectedResult)
         {
             // Arrange
             var value = decimal.Parse(valueAsString);
-
+            
             // Act
             var result = CurrencyWordConverter.Convert(value);
 
