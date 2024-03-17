@@ -101,6 +101,7 @@ namespace TechOneAssessment.Web.Utilities
 
             foreach (var part in dollar.Parts)
             {
+                if (part.Value == 0) continue;
                 var value = DoConvertFor0To99(part.Value);
                 if (part.Term != null) value += " " + part.Term;
                 results.Add(value);
@@ -183,10 +184,7 @@ namespace TechOneAssessment.Web.Utilities
                 var startIndex = maxIndex - (endDigit - 1);
                 var length = endDigit - startDigit + 1;
 
-                if (startDigit < 0)
-                {
-                    return null;
-                }
+                if (startIndex < 0) startIndex = 0;
 
                 var resultAsString = value.Substring(startIndex, length);
 
