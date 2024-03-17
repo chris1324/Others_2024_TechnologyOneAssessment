@@ -103,5 +103,15 @@ namespace TechOneAccessMent.Test
         }
 
         protected abstract IDollarsWordConverter CreateSut();
+
+        public class DollarsWordConverterV1_Test : DollarsWordConverter_Test
+        {
+            protected override IDollarsWordConverter CreateSut() => new DollarsWordConverterV1();
+        }
+
+        public class DollarsWordConverterV2_Test : DollarsWordConverter_Test
+        {
+            protected override IDollarsWordConverter CreateSut() => new DollarsWordConverterV2();
+        }
     }
 }
