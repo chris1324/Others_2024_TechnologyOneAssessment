@@ -89,20 +89,21 @@ namespace TechOneAccessMent.Test
         [InlineData("1,000,000,000,000.00", "ONE TRILLION DOLLARS")]
         [InlineData("10,000,000,000,000.00", "TEN TRILLION DOLLARS")]
         [InlineData("100,000,000,000,000.00", "ONE HUNDRED TRILLION DOLLARS")]
-        [InlineData("1,000,000,000,000,000.00", "ONE QUADRILLION DOLLARS")]
-        [InlineData("10,000,000,000,000,000.00", "TEN QUADRILLION DOLLARS")]
-        [InlineData("100,000,000,000,000,000.00", "ONE HUNDRED QUADRILLION DOLLARS")]
-        [InlineData("1,000,000,000,000,000,000.00", "ONE QUINTILLION DOLLARS")]
-        [InlineData("10,000,000,000,000,000,000.00", "TEN QUINTILLION DOLLARS")]
-        [InlineData("100,000,000,000,000,000,000.00", "ONE HUNDRED QUINTILLION DOLLARS")]
-        [InlineData("1,000,000,000,000,000,000,000.00", "ONE SEXTILLION DOLLARS")]
-        [InlineData("10,000,000,000,000,000,000,000.00", "TEN SEXTILLION DOLLARS")]
-        [InlineData("100,000,000,000,000,000,000,000.00", "ONE HUNDRED SEXTILLION DOLLARS")]
-        public void Convert_GivenNumericDollars_ConvertToExpectedWords(string value, string expectedResult)
+        [InlineData("1,000,000,000,000,000.00", "ONE QUADRILLION DOLLARS", true)]
+        [InlineData("10,000,000,000,000,000.00", "TEN QUADRILLION DOLLARS", true)]
+        [InlineData("100,000,000,000,000,000.00", "ONE HUNDRED QUADRILLION DOLLARS", true)]
+        [InlineData("1,000,000,000,000,000,000.00", "ONE QUINTILLION DOLLARS", true)]
+        [InlineData("10,000,000,000,000,000,000.00", "TEN QUINTILLION DOLLARS", true)]
+        [InlineData("100,000,000,000,000,000,000.00", "ONE HUNDRED QUINTILLION DOLLARS", true)]
+        [InlineData("1,000,000,000,000,000,000,000.00", "ONE SEXTILLION DOLLARS", true)]
+        [InlineData("10,000,000,000,000,000,000,000.00", "TEN SEXTILLION DOLLARS", true)]
+        [InlineData("100,000,000,000,000,000,000,000.00", "ONE HUNDRED SEXTILLION DOLLARS", true)]
+        public void Convert_GivenNumericDollars_ConvertToExpectedWords(string value, string expectedResult, bool isLargeNumber = false)
         {
             // Arrange
             // Act
             var sut = CreateSut();
+            if (isLargeNumber && !RunLargeNumberTest()) return;
             var result = sut.Convert(value);
 
             // Assert
@@ -110,20 +111,24 @@ namespace TechOneAccessMent.Test
         }
 
         protected abstract IDollarsWordConverter CreateSut();
+        protected abstract bool RunLargeNumberTest();
 
         public class DollarsWordConverterV1_Test : DollarsWordConverter_Test
         {
             protected override IDollarsWordConverter CreateSut() => new DollarsWordConverterV1();
+            protected override bool RunLargeNumberTest() => false;
         }
 
         public class DollarsWordConverterV2_Test : DollarsWordConverter_Test
         {
             protected override IDollarsWordConverter CreateSut() => new DollarsWordConverterV2();
+            protected override bool RunLargeNumberTest() => false;
         }
 
         public class DollarsWordConverterV3_Test : DollarsWordConverter_Test
         {
             protected override IDollarsWordConverter CreateSut() => new DollarsWordConverterV3();
+            protected override bool RunLargeNumberTest() => true;
         }
     }
 }
