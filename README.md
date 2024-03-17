@@ -34,14 +34,21 @@
 4. Note
 - There are only 1 test class in this solution ("DollarsWordConverter_Test")
 
-## Limitation
+## Algorithm
+1. There are 3 implementations
+- DollarsWordConverterV1
+  - This is the actual implementation used in the web.
+- DollarsWordConverterV2
+  - This alogirhtm is similar to DollarsWordConverterV1, but written using iteration approrach (while do loop), instead of recurrsive approach.
+  - The difference is more of a programming style or preferrence. Myself prefer using recurrsive approach as it is more readable and easier to understand.
+- DollarsWordConverterV3
+  - This algorithm allow to convert for very large number, but at the cost of more complex code.
+2. Overall, the fundamental algorithm of the three algorithm are identitcal. If it is not required to support large number, i would prefer DollarsWordConverterV1, as DollarsWordConverterV2 and DollarsWordConverterV3's code are more complex and take more time to write.
+
+## Limitation (DollarsWordConverterV1, DollarsWordConverterV2s)
 1. The algorithm only supports conversion to English. If there is a requirement to support other languages, then the algorithm may or may not be suitable, depending on how different the language is from English
-- If it is highly similar, the agorithm can be refactored to accept a set of objects that define how to convert base on the language.
+- If it is highly similar, the algorithm  can be refactored to accept a set of objects that define how to convert base on the language.
 - Otherwise need to implement another algorithm for that language.
-2. The maximum value it can convert is 100,000,000,000,000.00 (ONE HUNDRED TRILLION DOLLARS).
-- The reason is because of long data type max value.
-- If need to solve this limitation, maybe BigInteger is a possible solution. 
-- Another possible solution is to hold the number as string and parse the string part by part. I will require change some code in the current algorithm. 
 
 ## Enhancement that could be make to improve user experience
 1. Format the value in input using "XXX,XXX.00" format. This is much readable when the amount is large.
