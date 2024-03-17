@@ -1,6 +1,6 @@
 ﻿namespace TechOneAssessment.Web.Utilities
 {
-    public static class CurrencyWordConverter
+    public static class DollarsWordConverter
     {
         private static readonly Dictionary<long, string> _teens = new()
         {

@@ -22,7 +22,7 @@ namespace TechOneAssessment.Web.Controllers
         {
             try
             {
-                var result = CurrencyWordConverter.Convert(input);
+                var result = DollarsWordConverter.Convert(input);
                 return Content(result);
             }
             catch (Exception ex)

@@ -2,7 +2,7 @@ using TechOneAssessment.Web.Utilities;
 
 namespace TechOneAccessMent.Test
 {
-    public class CurrencyWordConverter_Test
+    public class DollarsWordConverter_Test
     {
         [Theory]
         [InlineData("123.45", "ONE HUNDRED AND TWENTY-THREE DOLLARS AND FORTY-FIVE CENTS")]
@@ -94,7 +94,7 @@ namespace TechOneAccessMent.Test
             var value = decimal.Parse(valueAsString);
             
             // Act
-            var result = CurrencyWordConverter.Convert(value);
+            var result = DollarsWordConverter.Convert(value);
 
             // Assert
             Assert.Equal(expectedResult, result);
