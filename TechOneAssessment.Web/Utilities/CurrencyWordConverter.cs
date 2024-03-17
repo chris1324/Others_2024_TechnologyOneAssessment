@@ -49,6 +49,8 @@
             new Term { Lower = (long) Math.Pow(10, 12), Upper = (long) Math.Pow(10, 15), Word = "TRILLION" }
         };
 
+        private static char WordSeparator = '|';
+
         public static string Convert(decimal value)
         {
             var valueAbs = Math.Abs(value);
@@ -63,6 +65,13 @@
 
             var words = Concat();
             if (value < 0) words = $"({words})";
+
+            var lastSeparatorIndex = words.LastIndexOf(WordSeparator);
+            if (lastSeparatorIndex >= 0)
+            {
+                words = words.ReplaceAt(words.LastIndexOf(WordSeparator), " AND ");
+                words = words.Replace("|", " ");
+            }
 
             return words;
 
@@ -112,14 +121,7 @@
                 if (remainder > 0)
                 {
                     var remainderWord = DoConvert(remainder);
-                    if (remainderWord.Contains("AND"))
-                    {
-                        word += " " + remainderWord;
-                    }
-                    else
-                    {
-                        word += " AND " + remainderWord;
-                    }
+                    word += WordSeparator + remainderWord;
                 }
 
                 return word;
