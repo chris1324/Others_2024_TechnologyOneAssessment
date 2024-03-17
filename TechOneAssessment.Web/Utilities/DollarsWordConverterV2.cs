@@ -130,22 +130,26 @@ namespace TechOneAssessment.Web.Utilities
             }
         }
 
+        private static string DoConvertFor0To19(long value)
+        {
+            return _teens[value];
+        }
+
         private static string DoConvertFor0To99(long value)
         {
             if (value < 20)
             {
-                return _teens[value];
+                return DoConvertFor0To19(value);
             }
             else
             {
                 var remainder = value % 10;
                 var word = _tens[value - remainder];
-                if (remainder > 0) word += "-" + DoConvert(remainder);
+                if (remainder > 0) word += "-" + DoConvertFor0To19(remainder);
 
                 return word;
             }
         }
-
 
         private static string DoConvertFor100To999(long value)
         {
