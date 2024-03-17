@@ -338,3 +338,5 @@ ASALocalRun/
 
 # BeatPulse healthcheck temp database
 healthchecksdb
+TechOneAssessment.Web/Properties/ServiceDependencies/TechOneAccessment - Web Deploy/profile.arm.json
+TechOneAssessment.Web/.config/dotnet-tools.json
