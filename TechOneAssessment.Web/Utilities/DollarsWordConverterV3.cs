@@ -181,14 +181,16 @@ namespace TechOneAssessment.Web.Utilities
             {
                 var maxIndex = value.Count() - 1;
                 var startIndex = maxIndex - (endDigit - 1);
-                var length = endDigit - startDigit;
+                var length = endDigit - startDigit + 1;
 
                 if (startDigit < 0)
                 {
                     return null;
                 }
 
-                var isValid = int.TryParse(value.Substring(startIndex, length), out var result);
+                var resultAsString = value.Substring(startIndex, length);
+
+                var isValid = int.TryParse(resultAsString, out var result);
                 if (!isValid) throw new InputException("Input format invalid");
 
                 return new DollarPart(result, term);
