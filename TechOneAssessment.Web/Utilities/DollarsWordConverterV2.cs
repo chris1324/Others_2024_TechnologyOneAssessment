@@ -95,7 +95,7 @@ namespace TechOneAssessment.Web.Utilities
             var results = new List<string>();
             var nextValue = value;
 
-            while (nextValue > 0)
+            do
             {
                 if (nextValue < 100)
                 {
@@ -114,9 +114,9 @@ namespace TechOneAssessment.Web.Utilities
 
                     nextValue = remainder;
                 }
-            }
+            } while (nextValue > 0);
 
-            if (results.Count == 1)
+            if (results.Count > 1)
             {
                 return results[0];
             }
