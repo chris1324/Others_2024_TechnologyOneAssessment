@@ -106,7 +106,11 @@ namespace TechOneAssessment.Web.Utilities
                 results.Add(value);
             }
 
-            if (results.Count == 1)
+            if (results.Count == 0)
+            {
+                return "ZERO";
+            }
+            else if (results.Count == 1)
             {
                 return results[0];
             }
@@ -176,15 +180,15 @@ namespace TechOneAssessment.Web.Utilities
             private static DollarPart Parse(string value, int startDigit, int endDigit, string term)
             {
                 var maxIndex = value.Count() - 1;
-                var startIndex = maxIndex - (startDigit - 1);
-                var endIndex = maxIndex - (endDigit - 1);
+                var startIndex = maxIndex - (endDigit - 1);
+                var length = endDigit - startDigit;
 
-                if (startDigit < 0 || endIndex < 0)
+                if (startDigit < 0)
                 {
                     return null;
                 }
 
-                var isValid = int.TryParse(value.AsSpan(startIndex, endIndex), out var result);
+                var isValid = int.TryParse(value.Substring(startIndex, length), out var result);
                 if (!isValid) throw new InputException("Input format invalid");
 
                 return new DollarPart(result, term);
