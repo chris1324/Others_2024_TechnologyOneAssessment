@@ -96,12 +96,9 @@ namespace TechOneAssessment.Web.Utilities
 
         private string DoConvertDollars(Dollar dollar)
         {
+            if (dollar.IsZeroDollar) return "ZERO";
+            
             var results = new List<string>();
-
-            if (dollar.IsZeroDollar)
-            {
-                return "ZERO";
-            }
 
             foreach (var part in dollar.Parts)
             {
