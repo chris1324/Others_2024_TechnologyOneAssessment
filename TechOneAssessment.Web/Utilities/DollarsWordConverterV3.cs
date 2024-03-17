@@ -147,8 +147,8 @@ namespace TechOneAssessment.Web.Utilities
                 var isNegative = value.Contains("-");
 
                 var dollarsValue = value.Contains('.') ? value.Split(".")[0] : value;
-                dollarsValue = dollarsValue.Remove(',');
-                dollarsValue = dollarsValue.Remove('-');
+                dollarsValue = dollarsValue.Replace(",", "");
+                dollarsValue = dollarsValue.Replace("-", "");
 
                 var centsValue = value.Contains('.') ? value.Split(".")[1] : value;
                 var isValidCents = int.TryParse(centsValue, out var centsValueAsInt);
