@@ -1,0 +1,38 @@
+﻿@{
+    ViewData["Title"] = "Number to Words";
+}
+
+<form id="conversionForm">
+    <div>
+        <div>
+            <label for="inputNumber">Enter a number:</label>
+            <input type="number" name="inputNumber" step="0.01" id="inputNumber" required max="100000000000000" />
+            <input type="submit" value="Convert" />
+        </div>
+
+        <div>
+            Result : <span id="resultSection"><!-- Result will be displayed here --> </span>
+        </div>
+    </div>
+</form>
+
+@section scripts {
+    <script>
+        $(function () {
+            $('#conversionForm').submit(function (e) {
+                e.preventDefault(); // Prevent normal form submission
+
+                var inputValue = $('#inputNumber').val();
+
+                $.ajax({
+                    url: '@Url.Action("ConvertToWords", "Home")',
+                    type: 'POST',
+                    data: { input: inputValue },
+                    success: function (result) {
+                        $('#resultSection').html(result);
+                    }
+                });
+            });
+        });
+    </script>
+}
