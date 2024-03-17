@@ -186,6 +186,7 @@ namespace TechOneAssessment.Web.Utilities
                 Cents = centsValueAsInt;
                 Parts = new List<DollarPart>
                 {
+                    Parse(dollarsValue, 16, 18, "QUADRILLION"),
                     Parse(dollarsValue, 13, 15, "TRILLION"),
                     Parse(dollarsValue, 10, 12, "BILLION"),
                     Parse(dollarsValue, 7, 9, "MILLION"),

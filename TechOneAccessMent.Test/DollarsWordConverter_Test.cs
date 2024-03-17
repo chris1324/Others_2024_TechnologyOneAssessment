@@ -89,6 +89,9 @@ namespace TechOneAccessMent.Test
         [InlineData("1,000,000,000,000.00", "ONE TRILLION DOLLARS")]
         [InlineData("10,000,000,000,000.00", "TEN TRILLION DOLLARS")]
         [InlineData("100,000,000,000,000.00", "ONE HUNDRED TRILLION DOLLARS")]
+        [InlineData("1,000,000,000,000,000.00", "ONE QUADRILLION DOLLARS")]
+        [InlineData("10,000,000,000,000,000.00", "TEN QUADRILLION DOLLARS")]
+        [InlineData("100,000,000,000,000,000.00", "ONE HUNDRED QUADRILLION DOLLARS")]
         public void Convert_GivenNumericDollars_ConvertToExpectedWords(string value, string expectedResult)
         {
             // Arrange
