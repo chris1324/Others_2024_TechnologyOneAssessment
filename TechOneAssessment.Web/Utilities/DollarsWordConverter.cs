@@ -2,7 +2,7 @@
 
 namespace TechOneAssessment.Web.Utilities
 {
-    public static class DollarsWordConverter
+    public class DollarsWordConverter
     {
         private static readonly Dictionary<long, string> _teens = new()
         {
@@ -53,7 +53,7 @@ namespace TechOneAssessment.Web.Utilities
 
         private static char WordSeparator = '|';
 
-        public static string Convert(decimal value)
+        public string Convert(decimal value)
         {
             var valueAbs = Math.Abs(value);
 
@@ -98,7 +98,7 @@ namespace TechOneAssessment.Web.Utilities
             }
         }
 
-        private static string DoConvert(long value)
+        private string DoConvert(long value)
         {
             if (value < 100) return DoConvertFor0To99(value);
 
@@ -117,7 +117,7 @@ namespace TechOneAssessment.Web.Utilities
             return word;
         }
 
-        private static string DoConvertFor0To99(long value)
+        private string DoConvertFor0To99(long value)
         {
             if (value < 20)
             {

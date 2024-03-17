@@ -1,10 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
-using System.Linq;
-using TechOneAssessment.Web.Exceptions;
+﻿using TechOneAssessment.Web.Exceptions;
 
 namespace TechOneAssessment.Web.Utilities
 {
-    public static class DollarsWordConverterV2
+    public class DollarsWordConverterV2
     {
         private static readonly Dictionary<long, string> _teens = new()
         {
@@ -53,7 +51,7 @@ namespace TechOneAssessment.Web.Utilities
             new Term { Lower = (long) Math.Pow(10, 12), Upper = (long) Math.Pow(10, 15), Word = "TRILLION" }
         };
 
-        public static string Convert(decimal value)
+        public string Convert(decimal value)
         {
             var valueAbs = Math.Abs(value);
 
@@ -91,7 +89,7 @@ namespace TechOneAssessment.Web.Utilities
             }
         }
 
-        private static string DoConvert(long value)
+        private string DoConvert(long value)
         {
             var results = new List<string>();
             var nextValue = value;
@@ -132,7 +130,7 @@ namespace TechOneAssessment.Web.Utilities
             }
         }
 
-        private static List<string> DoConvertFor100To999(long value)
+        private List<string> DoConvertFor100To999(long value)
         {
             var results = new List<string>();
 
@@ -156,7 +154,7 @@ namespace TechOneAssessment.Web.Utilities
             return results;
         }
 
-        private static string DoConvertFor0To99(long value)
+        private string DoConvertFor0To99(long value)
         {
             if (value < 20)
             {
@@ -172,7 +170,7 @@ namespace TechOneAssessment.Web.Utilities
             }
         }
 
-        private static string DoConvertFor0To19(long value)
+        private string DoConvertFor0To19(long value)
         {
             return _teens[value];
         }
