@@ -71,8 +71,10 @@ namespace TechOneAccessMent.Test
         [InlineData("22,913.21", "TWENTY-TWO THOUSAND NINE HUNDRED AND THIRTEEN DOLLARS AND TWENTY-ONE CENTS")]
         // Hundred Thousand dollars
         [InlineData("100,000.00", "ONE HUNDRED THOUSAND DOLLARS")]
+        [InlineData("231,232.23", "TWO HUNDRED THIRTY-ONE THOUSAND TWO HUNDRED AND THIRTY-TWO DOLLARS AND TWENTY-THREE CENTS")]
         // Million dollars
         [InlineData("1,000,000.00", "ONE MILLION DOLLARS")]
+        [InlineData("5,631,337.22", "FIVE MILLION SIX HUNDRED THIRTY-ONE THOUSAND THREE HUNDRED AND THIRTY-SEVEN DOLLARS AND TWENTY-TWO CENTS")]
         // Ten Million dollars
         [InlineData("10,000,000.00", "TEN MILLION DOLLARS")]
         // Hundred Million dollars

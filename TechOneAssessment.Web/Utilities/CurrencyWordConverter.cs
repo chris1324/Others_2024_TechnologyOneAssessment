@@ -61,12 +61,12 @@
             var centsWord = DoConvert(cents);
             centsWord += cents == 1 ? " CENT" : " CENTS";
 
-            var words = Build();
+            var words = Concat();
             if (value < 0) words = $"({words})";
 
             return words;
 
-            string Build()
+            string Concat()
             {
                 if (dollars != 0 && cents != 0)
                 {
