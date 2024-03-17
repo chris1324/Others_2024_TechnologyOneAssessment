@@ -43,6 +43,7 @@
   - The difference is more of a programming style or preferrence. Myself prefer using recurrsive approach as it is more readable and easier to understand.
 - DollarsWordConverterV3
   - This algorithm allow to convert for very large number, but at the cost of more complex code.
+  - Because the input is string data type, parsing is needed and more checking is required to ensure input is correct.
 2. Overall, the fundamental algorithm of the three algorithm are identitcal. If it is not required to support large number, i would prefer DollarsWordConverterV1, as DollarsWordConverterV2 and DollarsWordConverterV3's code are more complex and take more time to write.
 
 ## Limitation (DollarsWordConverterV1, DollarsWordConverterV2s)
