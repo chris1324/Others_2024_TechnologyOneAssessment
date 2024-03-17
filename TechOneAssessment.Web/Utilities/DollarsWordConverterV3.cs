@@ -176,14 +176,17 @@ namespace TechOneAssessment.Web.Utilities
                 dollarsValue = dollarsValue.Replace(",", "");
                 dollarsValue = dollarsValue.Replace("-", "");
 
-                var centsValue = value.Contains('.') ? value.Split(".")[1][..2] : value;
-                var isValidCents = int.TryParse(centsValue, out var centsValueAsInt);
-                if (!isValidCents) throw new InputException("Input format invalid");
+                var centsValue = value.Contains('.') ? value.Split(".")[1][..2] : null;
+                if (centsValue != null)
+                {
+                    var isValidCents = int.TryParse(centsValue, out var centsValueAsInt);
+                    if (!isValidCents) throw new InputException("Input format invalid");
+                    Cents = centsValueAsInt;
+                }
 
                 IsNegative = isNegative;
                 IsZeroDollar = dollarsValue == "0";
                 IsOneDollar = dollarsValue == "1";
-                Cents = centsValueAsInt;
                 Parts = new List<DollarPart>
                 {
                     Parse(dollarsValue, 34, 36, "DECILLION"),
