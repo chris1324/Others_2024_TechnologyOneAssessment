@@ -187,6 +187,7 @@ namespace TechOneAssessment.Web.Utilities
                 Parts = new List<DollarPart>
                 {
                     Parse(dollarsValue, 19, 21, "QUINTILLION"),
+                    Parse(dollarsValue, 19, 21, "QUINTILLION"),
                     Parse(dollarsValue, 16, 18, "QUADRILLION"),
                     Parse(dollarsValue, 13, 15, "TRILLION"),
                     Parse(dollarsValue, 10, 12, "BILLION"),
