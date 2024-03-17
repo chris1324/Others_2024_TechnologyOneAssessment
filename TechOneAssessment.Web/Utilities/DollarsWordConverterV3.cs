@@ -97,12 +97,11 @@ namespace TechOneAssessment.Web.Utilities
         private string DoConvertDollars(Dollar dollar)
         {
             if (dollar.IsZeroDollar) return "ZERO";
-            
+
             var results = new List<string>();
 
             foreach (var part in dollar.Parts)
             {
-                if (part.Value == 0) continue;
                 var currResults = DoConvertFor100To999(part.Value);
                 var lastIndex = currResults.Count - 1;
                 if (part.Term != null) currResults[lastIndex] += " " + part.Term;
@@ -192,8 +191,8 @@ namespace TechOneAssessment.Web.Utilities
                 }.Where(x => x != null).ToList();
 
                 IsNegative = isNegative;
-                IsZeroDollar = parts.Sum(x => x.Value) == 0;
-                IsOneDollar = parts.All(x => x.Term == null && x.Value == 1);
+                IsZeroDollar = dollarsValue == "0";
+                IsOneDollar = dollarsValue == "1";
                 Cents = centsValueAsInt;
                 Parts = parts;
             }
@@ -216,6 +215,8 @@ namespace TechOneAssessment.Web.Utilities
 
                 var isValid = int.TryParse(resultAsString, out var result);
                 if (!isValid) throw new InputException("Input format invalid");
+
+                if (result == 0) return null;
 
                 return new DollarPart(result, term);
             }
