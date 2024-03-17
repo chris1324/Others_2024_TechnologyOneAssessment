@@ -93,24 +93,26 @@ namespace TechOneAssessment.Web.Utilities
         private static string DoConvert(long value)
         {
             var results = new List<string>();
-            var remainder = value;
+            var nextValue = value;
 
-            while (true)
+            while (nextValue > 0)
             {
-                if (remainder < 100)
+                if (nextValue < 100)
                 {
-                    var word = DoConvertFor0To99(value);
+                    var word = DoConvertFor0To99(nextValue);
                     results.Add(word);
-                    break;
+                    nextValue = 0;
                 }
                 else
                 {
-                    var term = _terms.FirstOrDefault(x => x.Lower <= remainder && remainder < x.Upper);
+                    var term = _terms.FirstOrDefault(x => x.Lower <= nextValue && nextValue < x.Upper);
                     if (term == null) throw new InputException("Value is too large.");
 
-                    remainder = value % term.Lower;
-                    var word = DoConvert((value - remainder) / term.Lower) + " " + term.Word;
+                    var remainder = nextValue % term.Lower;
+                    var word = DoConvert((nextValue - remainder) / term.Lower) + " " + term.Word;
                     results.Add(word);
+
+                    nextValue = remainder;
                 }
             }
 
@@ -121,7 +123,7 @@ namespace TechOneAssessment.Web.Utilities
             else
             {
                 var lastIndex = results.Count - 1;
-                results[lastIndex] = " AND " + results[lastIndex];
+                results[lastIndex] = "AND " + results[lastIndex];
 
                 return string.Join(" ", results);
             }
