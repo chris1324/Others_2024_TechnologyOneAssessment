@@ -45,10 +45,10 @@ namespace TechOneAssessment.Web.Utilities
         public string Convert(string value)
         {
             var dollar = new Dollar(value);
-            var dollarsWord = ConvertDollars(dollar);
+            var dollarsWord = DoConvertDollars(dollar);
             dollarsWord += dollar.IsOneDollar ? " DOLLAR" : " DOLLARS";
 
-            var centsWord = ConvertCents(dollar);
+            var centsWord = DoConvertCents(dollar);
             centsWord += dollar.Cents == 1 ? " CENT" : " CENTS";
 
             var words = Concat();
@@ -82,7 +82,7 @@ namespace TechOneAssessment.Web.Utilities
             return Convert(value.ToString());
         }
 
-        private string ConvertCents(Dollar dollar)
+        private string DoConvertCents(Dollar dollar)
         {
             if (dollar.Cents > 0)
             {
@@ -94,7 +94,7 @@ namespace TechOneAssessment.Web.Utilities
             }
         }
 
-        private string ConvertDollars(Dollar dollar)
+        private string DoConvertDollars(Dollar dollar)
         {
             var results = new List<string>();
 
