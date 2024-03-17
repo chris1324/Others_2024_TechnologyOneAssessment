@@ -62,7 +62,7 @@ namespace TechOneAssessment.Web.Utilities
             dollarsWord += dollars == 1 ? " DOLLAR" : " DOLLARS";
 
             var cents = (long)Math.Floor((valueAbs - dollars) * 100);
-            var centsWord = DoConvert(cents);
+            var centsWord = DoConvertFor0To99(cents);
             centsWord += cents == 1 ? " CENT" : " CENTS";
 
             var words = Concat();
@@ -100,31 +100,34 @@ namespace TechOneAssessment.Web.Utilities
 
         private static string DoConvert(long value)
         {
+            if (value < 100) return DoConvertFor0To99(value);
+
+            var term = _terms.FirstOrDefault(x => x.Lower <= value && value < x.Upper);
+            if (term == null) throw new InputException("Value is too large.");
+
+            var remainder = value % term.Lower;
+            var word = DoConvert((value - remainder) / term.Lower) + " " + term.Word;
+
+            if (remainder > 0)
+            {
+                var remainderWord = DoConvert(remainder);
+                word += WordSeparator + remainderWord;
+            }
+
+            return word;
+        }
+
+        private static string DoConvertFor0To99(long value)
+        {
             if (value < 20)
             {
                 return _teens[value];
             }
-            else if (value < 100)
+            else
             {
                 var remainder = value % 10;
                 var word = _tens[value - remainder];
                 if (remainder > 0) word += "-" + DoConvert(remainder);
-
-                return word;
-            }
-            else
-            {
-                var term = _terms.FirstOrDefault(x => x.Lower <= value && value < x.Upper);
-                if (term == null) throw new InputException("Value is too large.");
-
-                var remainder = value % term.Lower;
-                var word = DoConvert((value - remainder) / term.Lower) + " " + term.Word;
-
-                if (remainder > 0)
-                {
-                    var remainderWord = DoConvert(remainder);
-                    word += WordSeparator + remainderWord;
-                }
 
                 return word;
             }
