@@ -59,3 +59,4 @@
 - Add a button to each result to allow user to click and copy the word to clipboard directly.
 4. Allow to choose currency symbol of different country.
 - But some country doesn't have "cents" like Japanese Yen, so might need to programatically allow / disallow 2 decimal.
+5. Enhance the appearance of the web UI to make it look more appealing.
