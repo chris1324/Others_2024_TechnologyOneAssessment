@@ -106,9 +106,10 @@ namespace TechOneAssessment.Web.Utilities
             foreach (var part in dollar.Parts)
             {
                 if (part.Value == 0) continue;
-                var value = DoConvertFor0To99(part.Value);
-                if (part.Term != null) value += " " + part.Term;
-                results.Add(value);
+                var currResults = DoConvertFor100To999(part.Value);
+                var lastIndex = currResults.Count - 1;
+                if (part.Term != null) currResults[lastIndex] += " " + part.Term;
+                results.AddRange(currResults);
             }
 
             if (results.Count == 1)
@@ -145,6 +146,30 @@ namespace TechOneAssessment.Web.Utilities
             }
         }
 
+        private List<string> DoConvertFor100To999(long value)
+        {
+            var results = new List<string>();
+
+            if (value < 100)
+            {
+                results.Add(DoConvertFor0To99(value));
+            }
+            else
+            {
+                var remainder = value % 100;
+                var word = DoConvertFor0To99((value - remainder) / 100) + " HUNDRED";
+                results.Add(word);
+
+                if (remainder > 0)
+                {
+                    var remainderWord = DoConvertFor0To99(remainder);
+                    results.Add(remainderWord);
+                }
+            }
+
+            return results;
+        }
+
         private class Dollar
         {
             public Dollar(string value)
@@ -161,12 +186,12 @@ namespace TechOneAssessment.Web.Utilities
 
                 var parts = new List<DollarPart>
                 {
-                    Parse(dollarsValue, 1, 2, null),
-                    Parse(dollarsValue, 3, 3, "HUNDRED"),
-                    Parse(dollarsValue, 4, 6, "THOUSAND"),
-                    Parse(dollarsValue, 7, 9, "MILLION"),
-                    Parse(dollarsValue, 10, 12, "BILLION"),
                     Parse(dollarsValue, 13, 15, "TRILLION"),
+                    Parse(dollarsValue, 10, 12, "BILLION"),
+                    Parse(dollarsValue, 7, 9, "MILLION"),
+                    Parse(dollarsValue, 4, 6, "THOUSAND"),
+                    Parse(dollarsValue, 3, 3, "HUNDRED"),
+                    Parse(dollarsValue, 1, 2, null)
                 }.Where(x => x != null).ToList();
 
                 IsNegative = isNegative;
