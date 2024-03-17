@@ -56,6 +56,7 @@ namespace TechOneAccessMent.Test
         [InlineData("91.21", "NINETY-ONE DOLLARS AND TWENTY-ONE CENTS")]
         // Hundred dollars
         [InlineData("100.00", "ONE HUNDRED DOLLARS")]
+        [InlineData("121.00", "ONE HUNDRED AND TWENTY-ONE DOLLARS")]
         [InlineData("201.21", "TWO HUNDRED AND ONE DOLLARS AND TWENTY-ONE CENTS")]
         [InlineData("290.21", "TWO HUNDRED AND NINETY DOLLARS AND TWENTY-ONE CENTS")]
         [InlineData("291.21", "TWO HUNDRED AND NINETY-ONE DOLLARS AND TWENTY-ONE CENTS")]
