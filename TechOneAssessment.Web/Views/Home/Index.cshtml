@@ -2,6 +2,35 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    TODO
+<div id="resultSection">
+    <!-- Result will be displayed here -->
 </div>
+
+<form id="conversionForm">
+    <div>
+        <label for="inputNumber">Enter a number:</label>
+        <input type="number" name="inputNumber" step="0.01" id="inputNumber" />
+        <input type="submit" value="Convert" />
+    </div>
+</form>
+
+@section scripts {
+    <script>
+        $(function () {
+            $('#conversionForm').submit(function (e) {
+                e.preventDefault(); // Prevent normal form submission
+
+                var inputValue = $('#inputNumber').val();
+                
+                $.ajax({
+                    url: '@Url.Action("ConvertToWords", "Home")',
+                    type: 'POST',
+                    data: { input: inputValue },
+                    success: function (result) {
+                        $('#resultSection').html(result);
+                    }
+                });
+            });
+        });
+    </script>
+}
