@@ -165,7 +165,7 @@ namespace TechOneAssessment.Web.Utilities
                 if (remainder > 0)
                 {
                     var remainderWord = DoConvertFor0To99(remainder);
-                    word += remainderWord;
+                    word += " " + remainderWord;
                 }
 
                 return word;
