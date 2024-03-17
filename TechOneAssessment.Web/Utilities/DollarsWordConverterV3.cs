@@ -170,7 +170,7 @@ namespace TechOneAssessment.Web.Utilities
 
                 IsNegative = isNegative;
                 IsZeroDollar = parts.Count == 0;
-                IsOneDollar = parts.Any(x => x.Term == "HUNDRED" && x.Value == 0);
+                IsOneDollar = parts.All(x => x.Term == null && x.Value == 1);
                 Cents = centsValueAsInt;
                 Parts = parts;
             }
