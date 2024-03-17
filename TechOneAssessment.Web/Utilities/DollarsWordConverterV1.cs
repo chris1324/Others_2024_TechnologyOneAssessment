@@ -1,4 +1,5 @@
 ﻿using TechOneAssessment.Web.Exceptions;
+using TechOneAssessment.Web.Extensions;
 
 namespace TechOneAssessment.Web.Utilities
 {

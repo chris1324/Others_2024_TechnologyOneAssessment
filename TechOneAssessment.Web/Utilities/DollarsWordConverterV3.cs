@@ -1,5 +1,4 @@
-﻿using System.IO;
-using TechOneAssessment.Web.Exceptions;
+﻿using TechOneAssessment.Web.Exceptions;
 
 namespace TechOneAssessment.Web.Utilities
 {
@@ -155,11 +154,9 @@ namespace TechOneAssessment.Web.Utilities
                 dollarsValue = dollarsValue.Replace(",", "");
                 dollarsValue = dollarsValue.Replace("-", "");
 
-                var centsValue = value.Contains('.') ? value.Split(".")[1] : value;
+                var centsValue = value.Contains('.') ? value.Split(".")[1][..2] : value;
                 var isValidCents = int.TryParse(centsValue, out var centsValueAsInt);
                 if (!isValidCents) throw new InputException("Input format invalid");
-
-                centsValueAsInt = Math.Min(centsValueAsInt, 99);
 
                 var parts = new List<DollarPart>
                 {
@@ -180,11 +177,17 @@ namespace TechOneAssessment.Web.Utilities
 
             private static DollarPart Parse(string value, int startDigit, int endDigit, string term)
             {
-                var maxIndex = value.Count() - 1;
+                var maxIndex = value.Length - 1;
                 var startIndex = maxIndex - (endDigit - 1);
                 var length = endDigit - startDigit + 1;
 
-                if (startIndex < 0) startIndex = 0;
+                while (startIndex < 0)
+                {
+                    startIndex++;
+                    length--;
+
+                    if (length == 0) return null;
+                }
 
                 var resultAsString = value.Substring(startIndex, length);
 
