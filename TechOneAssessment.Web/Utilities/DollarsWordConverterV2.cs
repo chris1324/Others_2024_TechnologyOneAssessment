@@ -110,8 +110,10 @@ namespace TechOneAssessment.Web.Utilities
                     if (term == null) throw new InputException("Value is too large.");
 
                     var remainder = nextValue % term.Lower;
-                    var word = DoConvertFor100To999((nextValue - remainder) / term.Lower) + " " + term.Word;
-                    results.Add(word);
+                    var currResults = DoConvertFor100To999((nextValue - remainder) / term.Lower);
+                    var lastIndex = currResults.Count - 1;
+                    currResults[lastIndex] += " " + term.Word;
+                    results.AddRange(currResults);
 
                     nextValue = remainder;
                 }
@@ -151,25 +153,28 @@ namespace TechOneAssessment.Web.Utilities
             }
         }
 
-        private static string DoConvertFor100To999(long value)
+        private static List<string> DoConvertFor100To999(long value)
         {
+            var results = new List<string>();
+
             if (value < 100)
             {
-                return DoConvertFor0To99(value);
+                results.Add(DoConvertFor0To99(value));
             }
             else
             {
                 var remainder = value % 100;
                 var word = DoConvertFor0To99((value - remainder) / 100) + " HUNDRED";
+                results.Add(word);
 
                 if (remainder > 0)
                 {
                     var remainderWord = DoConvertFor0To99(remainder);
-                    word += " " + remainderWord;
+                    results.Add(remainderWord);
                 }
-
-                return word;
             }
+
+            return results;
         }
 
         private class Term
