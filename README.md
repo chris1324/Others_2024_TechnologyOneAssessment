@@ -46,7 +46,7 @@
   - Because the input is string data type, parsing is needed and more checking is required to ensure input is correct.
 2. Overall, the fundamental algorithm of the three algorithm are identitcal. If it is not required to support large number, i would prefer DollarsWordConverterV1, as DollarsWordConverterV2 and DollarsWordConverterV3's code are more complex and take more time to write.
 
-## Limitation (DollarsWordConverterV1, DollarsWordConverterV2s)
+## Limitation (DollarsWordConverterV1, DollarsWordConverterV2)
 1. The algorithm only supports conversion to English. If there is a requirement to support other languages, then the algorithm may or may not be suitable, depending on how different the language is from English
 - If it is highly similar, the algorithm  can be refactored to accept a set of objects that define how to convert base on the language.
 - Otherwise need to implement another algorithm for that language.
